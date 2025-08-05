@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gullak Sagan - Budget Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px gray;
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        img {
+            width: 200px;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💰 Gullak Sagan – Budget Tracker 💸</h1>
+
+        <div class="section">
+            <label for="spending">Enter Expense (₹): </label>
+            <input type="number" id="spending" placeholder="Enter amount">
+            <button onclick="checkSpending()">Track</button>
+        </div>
+
+        <div class="section">
+            <h3>🎉 Festival Budgeting</h3>
+            <select id="festival">
+                <option value="Diwali">Diwali</option>
+                <option value="Holi">Holi</option>
+                <option value="Eid">Eid</option>
+                <option value="Wedding">Wedding</option>
+            </select>
+            <button onclick="suggestBudget()">Suggest Budget</button>
+            <p id="budgetSuggestion"></p>
+        </div>
+
+        <div class="section">
+            <h3>📲 UPI Scam Detector</h3>
+            <button onclick="detectScam()">Check UPI Safety</button>
+            <p id="scamAlert"></p>
+        </div>
+
+        <div class="section">
+            <h3>😆 Meme-Based Spending Alert</h3>
+            <img id="memeImage" src="" alt="Meme will appear here">
+        </div>
+    </div>
+
+    <script>
+        function checkSpending() {
+            let amount = document.getElementById("spending").value;
+            let memeImage = document.getElementById("memeImage");
+
+            if (amount > 500) {
+                memeImage.src = "https://i.imgflip.com/1ur9b0.jpg"; // Funny spending meme
+                memeImage.style.display = "block";
+                alert("Warning: 'Paisa Udh Raha Hai! 💸' - Time to control spending!");
+            } else {
+                memeImage.style.display = "none";
+                alert("You're spending wisely! 👍");
+            }
+        }
+
+        function suggestBudget() {
+            let festival = document.getElementById("festival").value;
+            let suggestion = document.getElementById("budgetSuggestion");
+
+            let budgets = {
+                "Diwali": "Suggested Budget: ₹5000 (Gifts, sweets, crackers)",
+                "Holi": "Suggested Budget: ₹2000 (Colors, food, travel)",
+                "Eid": "Suggested Budget: ₹4000 (Shopping, feasts, gifts)",
+                "Wedding": "Suggested Budget: ₹10000+ (Dress, gifts, travel)"
+            };
+
+            suggestion.innerText = budgets[festival];
+        }
+
+        function detectScam() {
+            let scamAlert = document.getElementById("scamAlert");
+            let randomCheck = Math.random();
+
+            if (randomCheck > 0.5) {
+                scamAlert.innerText = "⚠️ Warning: 'Dost, Yeh Scam Lag Raha Hai!' 🛑 Avoid suspicious transactions!";
+                scamAlert.style.color = "red";
+            } else {
+                scamAlert.innerText = "✅ Safe UPI Transaction!";
+                scamAlert.style.color = "green";
+            }
+        }
+    </script>
+
+</body>
+</html>

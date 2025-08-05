@@ -1,0 +1,7 @@
+import pandas as pd
+
+data = {'Name': ['Alice', 'Bob', 'Charlie', None], 'Age': [25, None, 30, 22]}
+df = pd.DataFrame(data)
+
+df_cleaned = df.dropna()  # Removes rows with missing values
+df_filled = df.fillna({'Age': df['Age'].mean()})  # Replaces NaN with mean age

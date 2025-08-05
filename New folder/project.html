@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FashAura — Where Fashion Meets Imagination</title>
+
+  <!-- Fonts and Swiper -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <style>
+    :root {
+      --primary: #2c2c2c;
+      --accent: #fdf6f0;
+      --white: #fffafc;
+      --cta: #d291bc;
+      --cta-hover: #b979a6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    nav.navbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: var(--white);
+    }
+
+    nav.navbar button,
+    nav.navbar a.cta {
+      text-decoration: none;
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--primary);
+      border-radius: 5px;
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    nav.navbar button:hover,
+    nav.navbar a.cta:hover {
+      background: var(--cta);
+      color: white;
+      border-color: var(--cta);
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: linear-gradient(to bottom, var(--white), var(--accent));
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta {
+      padding: 0.75rem 2rem;
+      background: var(--cta);
+      color: white;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .cta:hover {
+      background: var(--cta-hover);
+    }
+
+    .carousel-container {
+      padding: 4rem 2rem;
+      background: var(--white);
+    }
+
+    .swiper {
+      width: 100%;
+      height: 300px;
+    }
+
+    .swiper-slide {
+      width: 150px !important;
+      height: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .swiper-slide img:hover {
+      transform: scale(1.05) rotate(1deg);
+      opacity: 0.95;
+    }
+
+    .testimonial-section {
+      transition: background-color 1s ease;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .testimonial-section h2 {
+      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 7rem;
+    }
+
+    .testimonial-carousel {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .testimonial-left, .testimonial-right {
+      width: 25%;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .testimonial-left h4 {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .testimonial-left p {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .testimonial-image {
+      width: 300px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .testimonial-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+      transition: opacity 0.5s ease;
+    }
+
+    .testimonial-right .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-right .user-info img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 0.75rem;
+      border: 2px solid #ccc;
+    }
+
+    .testimonial-right .user-info span {
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .testimonial-right .stars {
+      color: gold;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .testimonial-right .review-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+
+    .testimonial-right p {
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    .testimonial-right .review-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0.75rem;
+      display: block;
+    }
+
+    .arrow-btn {
+      background: #111;
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 0.4rem 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .arrow-btn:hover {
+      background: #333;
+      transform: scale(1.1);
+    }
+
+    .testimonial-arrows {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 4rem;
+      z-index: 5;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* Auth Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background: var(--white);
+      margin: 8% auto;
+      padding: 30px;
+      border-radius: 20px;
+      width: 350px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(210, 145, 188, 0.3);
+      color: var(--primary);
+    }
+
+    .close {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    .auth-form {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .auth-form.active {
+      display: flex;
+    }
+
+    .auth-form input {
+      padding: 10px;
+      border: 1px solid var(--cta);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--primary);
+      border-radius: 5px;
+    }
+
+    .auth-form input::placeholder {
+      color: #888;
+    }
+
+    .auth-form button,
+    .social-login button {
+      padding: 10px;
+      border-radius: 30px;
+      border: none;
+      background: var(--cta);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .auth-form button:hover,
+    .social-login button:hover {
+      background: var(--cta-hover);
+    }
+
+    .social-login {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <button onclick="openModal('signin')">Login</button>
+    <button onclick="openModal('signup')">Sign Up</button>
+    <a href="chatbot.html" class="cta">Create Your Character</a>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>FashAura</h1>
+    <p class="tagline">Where Fashion Meets Imagination</p>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>Design the Character of Your Dreams</h2>
+    <p>Craft your own fashion avatar with FashAura's intelligent character creation engine. From hairstyle to heels — make every detail yours.</p>
+    <a href="chatbot.html" class="cta">Start Designing</a>
+  </section>
+
+  <!-- Carousel -->
+  <section class="collection">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/41/54/93/415493baf619272913a087d3bd40f759.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/cc/cc/2a/cccc2a8a48b1a93536f18363f86a2ea8.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/73/2e/47/732e471ec70b507c37fa0ec7122e1a9e.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/80/14/09/801409449b98668e987d627102522158.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/30/d3/35/30d335c907e59fe8a0c7edc4a409e85f.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/f1/42/3f/f1423fb80abc6d0a16c4ec74d38e1a1b.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/6e/54/50/6e545006fda59f5d51c2e1f81fa5f628.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/26/79/e4/2679e487e610599c1a50aa8b9c831ae0.jpg" /></div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/4b/9e/59/4b9e59339b269caf00509a933e9bea8f.jpg" /></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Testimonial Section -->
+  <section class="testimonial-section" id="testimonialSection">
+    <h2>Customer Reviews</h2>
+
+    <div class="testimonial-arrows">
+      <button class="arrow-btn" onclick="prevReview()">&#10094;</button>
+      <button class="arrow-btn" onclick="nextReview()">&#10095;</button>
+    </div>
+
+    <div class="testimonial-carousel">
+      <div class="testimonial-left">
+        <h4>Prompt Given</h4>
+        <p id="promptText"></p>
+      </div>
+
+      <div class="testimonial-image">
+        <img id="reviewImage" src="" />
+      </div>
+
+      <div class="testimonial-right">
+        <div class="user-info">
+          <img id="userImg" src="" />
+          <span id="userName"></span>
+        </div>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-title" id="reviewTitle"></div>
+        <p id="reviewText"></p>
+        <span class="review-meta">June 2025, Delhi</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>&copy; 2025 FashAura. All rights reserved.</footer>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <form id="signinForm" class="auth-form" onsubmit="return fakeSignIn(event)">
+        <h2>Sign In</h2>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Sign In</button>
+        <div class="social-login">
+          <button type="button" onclick="fakePopup('Google')">Sign in with Google</button>
+          <button type="button" onclick="fakePopup('Facebook')">Sign in with Facebook</button>
+        </div>
+      </form>
+      <form id="signupForm" class="auth-form" onsubmit="return validateSignup(event)">
+        <h2>Sign Up</h2>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <input type="password" placeholder="Confirm Password" required />
+        <button type="submit">Sign Up</button>
+        <div class="social-login">
+          <button type="button" onclick="fakePopup('Google')">Sign up with Google</button>
+          <button type="button" onclick="fakePopup('Facebook')">Sign up with Facebook</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper(".mySwiper", {
+      slidesPerView: "auto",
+      spaceBetween: 20,
+      loop: true,
+      freeMode: true,
+      speed: 3000,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+      },
+    });
+
+    const reviews = [
+      {
+        prompt: "Rosé Queen in a Velvet Dress",
+        image: "https://i.pinimg.com/736x/4a/42/0d/4a420d25812a2672972d66eb0e979753.jpg",
+        name: "Aarushi Mehta",
+        userImg: "https://i.pravatar.cc/100?img=5",
+        review: "FashAura turned my dream into reality! The Rosé Queen design made me feel like royalty — delicate, poised, and powerful.",
+        title: "Absolutely Stunning!",
+        bg: "#fff4f4"
+      },
+      {
+        prompt: "Cyberpunk Dancer in Neon Hues",
+        image: "https://i.pinimg.com/736x/3b/c3/ac/3bc3acf87dc9eeeace248462aa870ca1.jpg",
+        name: "Simran Kaur",
+        userImg: "https://i.pravatar.cc/100?img=6",
+        review: "It’s like my imagination danced onto the screen! The edgy colors and energy were exactly how I pictured my cyberpunk avatar.",
+        title: "Exactly What I Imagined!",
+        bg: "#eefdff"
+      },
+      {
+        prompt: "Desi Diva in a Power Saree",
+        image: "https://i.pinimg.com/736x/1d/78/f7/1d78f7ffc1cd1d6679e82d046f3a4f2b.jpg",
+        name: "Shruti Chopra",
+        userImg: "https://i.pravatar.cc/100?img=8",
+        review: "Loved every detail! It beautifully captured the confidence of a Desi woman in traditional attire with a modern twist.",
+        title: "Cultural Confidence!",
+        bg: "#fff8e6"
+      }
+    ];
+
+    let current = 0;
+
+    function animateElement(el) {
+      el.classList.remove("fade-in");
+      void el.offsetWidth;
+      el.classList.add("fade-in");
+    }
+
+    function updateReview(i) {
+      const r = reviews[i];
+      document.getElementById("promptText").textContent = r.prompt;
+      document.getElementById("reviewImage").src = r.image;
+      document.getElementById("userName").textContent = r.name;
+      document.getElementById("userImg").src = r.userImg;
+      document.getElementById("reviewText").textContent = “${r.review}”;
+      document.getElementById("reviewTitle").textContent = r.title;
+      document.getElementById("testimonialSection").style.backgroundColor = r.bg;
+
+      animateElement(document.getElementById("promptText"));
+      animateElement(document.getElementById("reviewImage"));
+      animateElement(document.getElementById("userName"));
+      animateElement(document.getElementById("userImg"));
+      animateElement(document.getElementById("reviewText"));
+      animateElement(document.getElementById("reviewTitle"));
+    }
+
+    function nextReview() {
+      current = (current + 1) % reviews.length;
+      updateReview(current);
+    }
+
+    function prevReview() {
+      current = (current - 1 + reviews.length) % reviews.length;
+      updateReview(current);
+    }
+
+    updateReview(0);
+    setInterval(nextReview, 7000);
+    
+    function openModal(type) {
+      document.getElementById("authModal").style.display = "block";
+      document.getElementById("signinForm").classList.remove("active");
+      document.getElementById("signupForm").classList.remove("active");
+
+      if (type === 'signin') {
+        document.getElementById("signinForm").classList.add("active");
+      } else {
+        document.getElementById("signupForm").classList.add("active");
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("authModal").style.display = "none";
+    }
+
+    function fakePopup(platform) {
+      const popup = window.open("", "popup", "width=400,height=300");
+      popup.document.write(`
+        <html><head><title>${platform} Sign-in</title></head>
+        <body style="background: var(--accent); color: var(--primary); font-family: Poppins; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+          <h1 style="color: var(--cta)">✔ Signed in with ${platform}</h1>
+        </body></html>
+      `);
+    }
+
+    function validateSignup(event) {
+      const form = document.getElementById("signupForm");
+      const password = form.querySelector('input[placeholder="Password"]').value;
+      const confirmPassword = form.querySelector('input[placeholder="Confirm Password"]').value;
+
+      if (password !== confirmPassword) {
+        alert("❌ Password and Confirm Password do not match.");
+        return false;
+      }
+
+      alert("✅ Signed up successfully (simulated)");
+      return false;
+    }
+
+    function fakeSignIn(event) {
+      alert("✅ Signed in successfully (simulated)");
+      return false;
+    }
+  </script>
+</body>
+</html>

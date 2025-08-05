@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VoiceKart (SQL)</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { margin: 5px; }
+    button { padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h1>VoiceKart Dashboard</h1>
+
+  <h3>Add Product</h3>
+  <input id="name" placeholder="Name">
+  <input id="price" placeholder="Price" type="number">
+  <input id="quantity" placeholder="Quantity" type="number">
+  <button onclick="addProduct()">Add</button>
+  <button onclick="addViaVoice()">🎤 Add via Voice</button>
+
+  <h3>Products</h3>
+  <ul id="productList"></ul>
+
+  <script>
+    async function fetchProducts() {
+      const res = await fetch('/products');
+      const products = await res.json();
+      document.getElementById('productList').innerHTML = 
+        products.map(p => `<li>${p.name} - ₹${p.price} (Qty: ${p.quantity})</li>`).join('');
+    }
+
+    async function addProduct() {
+      const name = document.getElementById('name').value;
+      const price = parseInt(document.getElementById('price').value);
+      const quantity = parseInt(document.getElementById('quantity').value);
+      await fetch('/products', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, price, quantity })
+      });
+      fetchProducts();
+    }
+
+    async function addViaVoice() {
+      const res = await fetch('/voice_command', { method: 'POST' });
+      const result = await res.json();
+      alert(result.message);
+      fetchProducts();
+    }
+
+    fetchProducts();
+  </script>
+</body>
+</html>
